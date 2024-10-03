@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0f0c29, #1f1f3f, #080837);
+    color: white;
+    position: relative;
+}
+
+/* Full-screen Animated Background */
+#animated-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+#animated-bg svg {
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    animation: waveAnimation 10s linear infinite;
+    fill: none;
+}
+
+@keyframes waveAnimation {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Neon Grid */
+.neon-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(0, 255, 255, 0.2) 0px,
+        rgba(0, 255, 255, 0.122) 1px,
+        transparent 1px,
+        transparent 50px
+    ),
+    repeating-linear-gradient(
+        0deg,
+        rgba(0, 251, 255, 0.816) 0px,
+        rgba(0, 251, 255, 0.377) 1px,
+        transparent 1px,
+        transparent 50px
+    );
+    z-index: 0;
+    opacity: 0.3;
+    animation: neonGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes neonGlow {
+    0% { opacity: 0.2; box-shadow: 0 0 20px #00fbff; }
+    100% { opacity: 0.6; box-shadow: 0 0 60px #00ffff; }
+}
+
+/* UI Design for Login and Signup */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.login-box, .signup-box {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(15px);
+    color: #fff;
+    text-align: center;
+    width: 300px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    color: white;
+    font-size: 16px;
+}
+
+.button:hover {
+    background: linear-gradient(45deg, #2575fc, #6a11cb);
+    transform: scale(1.05);
+}
+
+#toggleSignup, #toggleLogin {
+    cursor: pointer;
+    color: #ffffff;
+}
+#toggleSignup:hover, #toggleLogin:hover {
+    color: #06f7f3;
+    transform: scale(1.25);
+}

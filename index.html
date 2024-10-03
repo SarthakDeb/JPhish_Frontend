@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Animated Background with Waves -->
+    <div id="animated-bg">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path d="M0,224L80,208C160,192,320,160,480,138.7C640,117,800,107,960,128C1120,149,1280,203,1360,229.3L1440,256V320H1360C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320H0V224Z" fill="#00f6ff"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path d="M0,320L80,277.3C160,235,320,149,480,112C640,75,800,85,960,101.3C1120,117,1280,139,1360,165.3L1440,192V320H1360C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320H0V320Z" fill="#0077ff"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path d="M0,128L80,165.3C160,203,320,277,480,293.3C640,309,800,267,960,256C1120,245,1280,267,1360,256L1440,245.3V320H1360C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320H0V128Z" fill="#0033ff"></path></svg>
+    </div>
+
+    <!-- Neon Grid Overlay -->
+    <div class="neon-grid"></div>
+
+    <!-- Login Form -->
+    <div class="container">
+        <div class="login-box">
+            <h1>Login</h1>
+            <form id="loginForm">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit" class="button">Log In</button>
+            </form>
+            <p>Don't have an account? <span id="toggleSignup">Sign up here</span></p>
+        </div>
+    
+        <div class="signup-box" style="display: none;">
+            <h1>Sign Up</h1>
+            <form id="signupForm">
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="email" id="signupEmail" placeholder="Email" required>
+                <input type="password" id="signupPassword" placeholder="Password" required>
+                <button type="submit" class="button">Sign Up</button>
+            </form>
+            <p>Already have an account? <span id="toggleLogin">Log in here</span></p>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+
+</body>
+</html>
