@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Futuristic Homepage</title>
+    <link rel="stylesheet" href="homestyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">JPhish</div>
+        <nav>
+            <ul>
+                <li><a href="homepage.html" class="navitems">Home</a></li>
+                <li><a href="#usergroups" class="navitems" >User Groups</a></li>
+                <li><a href="#resources" class="navitems" >Resources</a></li>
+                <li><a href="#domainfinder" class="navitems">Domain Finder</a></li>
+                <li><a href="#campaign" class="navitems" >Campaign</a></li>
+                <li><a href="#sendingprofile" class="navitems" >Sending Profile</a></li>
+                <li><a href="#Training" class="navitems">Training</a></li>
+                <li><a href="index.html" class="navitems">LogIn</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to JPhish Website</h1>
+            <p class="hero-subtitle">Discover Security with Experience</p>
+            <!-- <button class="cta-button">Get Started</button> -->
+        </div>
+        <div class="video-container">
+            <video src="resources/5377684-uhd_3840_2160_25fps.mp4" muted loop></video>
+            <video src="resources/3130182-uhd_3840_2160_30fps.mp4" muted loop></video>
+            <video src="resources/8632777-uhd_3840_2160_25fps.mp4" muted loop></video>
+        </div>
+    </section>
+
+    <section id="analytics">
+        <h2>Analytics</h2>
+        <div class="charts-container">
+            <div class="chart-wrapper">
+                <canvas id="doughnut1"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="doughnut2"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="doughnut3"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="doughnut4"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="doughnut5"></canvas>
+            </div>
+        </div>
+    </section>
+    <!-- Stats Section -->
+    <section id="stats">
+        <h2>Stats</h2>
+        <div class="stats-container">
+            <div class="stat-box">
+                <h3 id="stat1">120</h3>
+                <p>Users</p>
+            </div>
+            <div class="stat-box">
+                <h3 id="stat2">350</h3>
+                <p>Campaigns</p>
+            </div>
+            <div class="stat-box">
+                <h3 id="stat3">1048</h3>
+                <p>Emails Sent</p>
+            </div>
+        </div>
+    </section>
+    <!-- Activity Tracking Section -->
+    <section id="activity">
+        <h2>Activity Tracking</h2>
+        <div class="activity-container">
+            <div class="activity-item">
+                <div class="activity-timestamp">2024-10-04 12:30 PM</div>
+                <div class="activity-description">User John Doe signed in.</div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-timestamp">2024-10-04 11:50 AM</div>
+                <div class="activity-description">Campaign "Product Launch" was created.</div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-timestamp">2024-10-04 10:15 AM</div>
+                <div class="activity-description">Email sent to 120 recipients.</div>
+            </div>
+        </div>
+    </section>
+    <!-- Articles Section -->
+    <section id="articles">
+        <h2>Articles</h2>
+        <div class="articles-container">
+            <article class="article">
+                <img src="https://via.placeholder.com/300x200" alt="Article 1">
+                <h3>Article Title 1</h3>
+                <p>Short description for article 1. This can be a summary or intro for the article.</p>
+                <a href="#" class="read-more">Read More</a>
+            </article>
+            <article class="article">
+                <img src="https://via.placeholder.com/300x200" alt="Article 2">
+                <h3>Article Title 2</h3>
+                <p>Short description for article 2. This can be a summary or intro for the article.</p>
+                <a href="#" class="read-more">Read More</a>
+            </article>
+            <article class="article">
+                <img src="https://via.placeholder.com/300x200" alt="Article 3">
+                <h3>Article Title 3</h3>
+                <p>Short description for article 3. This can be a summary or intro for the article.</p>
+                <a href="#" class="read-more">Read More</a>
+            </article>
+        </div>
+    </section>
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-container">
+            <div class="social-icons">
+                <a href="https://github.com/yourprofile" target="_blank">
+                    <img src="https://img.icons8.com/ios-filled/50/00ffcc/github.png" alt="GitHub">
+                </a>
+                <a href="https://linkedin.com/in/yourprofile" target="_blank">
+                    <img src="https://img.icons8.com/ios-filled/50/00ffcc/linkedin.png" alt="LinkedIn">
+                </a>
+                <a href="mailto:your.email@example.com" target="_blank">
+                    <img src="https://img.icons8.com/ios-filled/50/00ffcc/mail.png" alt="Email">
+                </a>
+            </div>
+            <p>&copy; 2024 JPhish. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="homescript.js"></script>
+</body>
+</html>
