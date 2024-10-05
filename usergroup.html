@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Management</title>
+    <link rel="stylesheet" href="usergroupstyle.css">
+</head>
+<body>
+    <header>
+        <div class="logo">JPhish</div>
+        <nav>
+            <ul>
+                <li><a href="homepage.html" class="navitems">Home</a></li>
+                <li><a href="#usergroups" class="navitems" >User Groups</a></li>
+                <li><a href="#resources" class="navitems" >Resources</a></li>
+                <li><a href="#domainfinder" class="navitems">Domain Finder</a></li>
+                <li><a href="#campaign" class="navitems" >Campaign</a></li>
+                <li><a href="#sendingprofile" class="navitems" >Sending Profile</a></li>
+                <li><a href="#Training" class="navitems">Training</a></li>
+                <li><a href="index.html" class="navitems">LogIn</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Group Management</h1>
+        <div class="button-container">
+            <button id="showGroupsBtn">Show Groups</button>
+            <button id="addGroupBtn">Add Group</button>
+        </div>
+
+        <div id="groupsSection" class="hidden">
+            <!-- Groups will be dynamically added here -->
+        </div>
+
+        <div id="addGroupModal" class="modal hidden">
+            <div class="modal-content">
+                <h2>Add New Group</h2>
+                <form id="addGroupForm">
+                    <label for="groupName">Group Name:</label>
+                    <input type="text" id="groupName" required>
+                    
+                    <label for="csvFile">Upload CSV File:</label>
+                    <input type="file" id="csvFile" accept=".csv">
+                    
+                    <button type="submit">Add Group</button>
+                </form>
+                <button id="closeModal">&times;</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="usergroupscript.js"></script>
+</body>
+</html>
