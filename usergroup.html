@@ -12,7 +12,7 @@
         <nav>
             <ul>
                 <li><a href="homepage.html" class="navitems">Home</a></li>
-                <li><a href="#usergroups" class="navitems" >User Groups</a></li>
+                <li><a href="usergroup.html" class="navitems" >User Groups</a></li>
                 <li><a href="#resources" class="navitems" >Resources</a></li>
                 <li><a href="#domainfinder" class="navitems">Domain Finder</a></li>
                 <li><a href="#campaign" class="navitems" >Campaign</a></li>
@@ -36,11 +36,11 @@
         <div id="addGroupModal" class="modal hidden">
             <div class="modal-content">
                 <h2>Add New Group</h2>
-                <form id="addGroupForm">
-                    <label for="groupName">Group Name:</label>
-                    <input type="text" id="groupName" required>
+                <form id="createGroupForm">
+                    <!-- <label for="groupName">Group Name:</label> -->
+                    <input type="text" id="groupName" placeholder="Group Name" required>
                     
-                    <label for="csvFile">Upload CSV File:</label>
+                    <!-- <label for="csvFile">Upload CSV File:</label> -->
                     <input type="file" id="csvFile" accept=".csv">
                     
                     <button type="submit">Add Group</button>

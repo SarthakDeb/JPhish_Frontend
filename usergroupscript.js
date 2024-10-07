@@ -1,57 +1,13 @@
-document.addEventListener('DOMContentLoaded', function() {
+
+document.addEventListener('DOMContentLoaded', () => {
     const showGroupsBtn = document.getElementById('showGroupsBtn');
     const addGroupBtn = document.getElementById('addGroupBtn');
-    const groupsSection = document.getElementById('groupsSection');
+    const closeModalBtn = document.getElementById('closeModal');
     const addGroupModal = document.getElementById('addGroupModal');
-    const closeModal = document.getElementById('closeModal');
-    const addGroupForm = document.getElementById('addGroupForm');
+    const groupsSection = document.getElementById('groupsSection');
+    const createGroupForm = document.getElementById('createGroupForm');
 
-    let groups = [];
-
-    showGroupsBtn.addEventListener('click', toggleGroupsSection);
-    addGroupBtn.addEventListener('click', openModal);
-    closeModal.addEventListener('click', closeModalFunction);
-    addGroupForm.addEventListener('submit', addNewGroup);
-
-    function toggleGroupsSection() {
-        groupsSection.classList.toggle('hidden');
-        if (!groupsSection.classList.contains('hidden')) {
-            renderGroups();
-        }
-    }
-
-    function openModal() {
-        addGroupModal.classList.remove('hidden');
-    }
-
-    function closeModalFunction() {
-        addGroupModal.classList.add('hidden');
-    }
-
-    function addNewGroup(e) {
-        e.preventDefault();
-        const groupName = document.getElementById('groupName').value;
-        const csvFile = document.getElementById('csvFile').files[0];
-
-        if (csvFile) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const csv = e.target.result;
-                const users = parseCSV(csv);
-                groups.push({ name: groupName, users: users });
-                renderGroups();
-                closeModalFunction();
-                addGroupForm.reset();
-            };
-            reader.readAsText(csvFile);
-        } else {
-            groups.push({ name: groupName, users: [] });
-            renderGroups();
-            closeModalFunction();
-            addGroupForm.reset();
-        }
-    }
-
+    // Function to parse CSV
     function parseCSV(csv) {
         const lines = csv.split('\n');
         return lines.map(line => {
@@ -60,20 +16,96 @@ document.addEventListener('DOMContentLoaded', function() {
         }).filter(user => user.name && user.email);
     }
 
-    function renderGroups() {
-        groupsSection.innerHTML = '';
+    function renderGroups(groups) {
+        groupsSection.innerHTML = ''; // Clear the previous content
         groups.forEach(group => {
             const groupElement = document.createElement('div');
             groupElement.className = 'group';
             groupElement.innerHTML = `
-                <h2>${group.name}</h2>
-                ${group.users.map(user => `
+                <h2>ID: ${group.id}, Name: ${group.groupName.replace(/"/g, '')}</h2>
+                <h3>Users:</h3>
+                <div>${group.users && group.users.length > 0 ? group.users.map(user => `
                     <div class="user">
-                        <strong>${user.name}</strong> - ${user.email}
+                        <p>User ID: ${user.id}, Name: ${user.name}, Email: ${user.email}</p>
                     </div>
-                `).join('')}
+                `).join('') : '<p>No users in this group</p>'}</div>
+                <p>Created At: ${group.createdAt ? new Date(group.createdAt).toLocaleString() : 'N/A'}<p>
             `;
             groupsSection.appendChild(groupElement);
         });
     }
+
+    // Function to fetch and display all groups
+    async function fetchAndDisplayGroups() {
+        try {
+            const response = await fetch('http://localhost:9000/usergroup/all');
+            if (!response.ok) {
+                throw new Error('Failed to fetch groups');
+            }
+            const groups = await response.json();
+            console.log(groups);
+            renderGroups(groups);
+            groupsSection.classList.remove('hidden'); // Show the groups section
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    // Event listener for creating a new group
+    createGroupForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const groupName = document.getElementById('groupName').value;
+        const csvFile = document.getElementById('csvFile').files[0];
+
+        if (!csvFile) {
+            alert('Please upload a CSV file.');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            const usersCSV = e.target.result;
+            const users = parseCSV(usersCSV);
+
+            try {
+                const response = await fetch('http://localhost:9000/usergroup/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name: groupName, users })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to create group');
+                }
+
+                const createdGroup = await response.json();
+                alert('Group created successfully!');
+                fetchAndDisplayGroups(); // Refresh the group list
+                addGroupModal.classList.add('hidden'); // Hide the modal
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+        reader.readAsText(csvFile);
+    });
+
+    // Event listeners for showing and hiding the modal
+    addGroupBtn.addEventListener('click', () => {
+        addGroupModal.classList.remove('hidden');
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+        addGroupModal.classList.add('hidden');
+    });
+
+    // Event listener for showing groups
+    showGroupsBtn.addEventListener('click', () => {
+        groupsSection.classList.toggle('hidden');
+        fetchAndDisplayGroups();
+    });
+
+    // Initial fetch and display of groups
+    // fetchAndDisplayGroups();
 });
