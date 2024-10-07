@@ -29,7 +29,7 @@
             if (response.ok) {
                 const token = await response.text(); // Assuming token is returned as plain text
                 console.log('Login successful:', token);
-                window.location.href = 'https://sarthakdev.tech';  // Redirect to your website
+                window.location.href = 'http://127.0.0.1:5500/homepage.html';  // Redirect to your website
             } else {
                 alert('Login failed. Please check your credentials.');
             }

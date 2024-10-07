@@ -12,6 +12,7 @@ const createDoughnutChart = (id, value, backgroundColor) => {
             }]
         },
         options: {
+            cutout: '70%',
             responsive: true,
             plugins: {
                 legend: {
@@ -24,30 +25,45 @@ const createDoughnutChart = (id, value, backgroundColor) => {
         }
     });
 };
-document.addEventListener('DOMContentLoaded', function() {
-    const analyticsSection = document.getElementById('analytics');
-    const chartWrappers = document.querySelectorAll('.chart-wrapper');
+// document.addEventListener('DOMContentLoaded', function() {
+//     const analyticsSection = document.getElementById('analytics');
+//     const chartWrappers = document.querySelectorAll('.chart-wrapper');
 
-    function isElementInViewport(el) {
-        const rect = el.getBoundingClientRect();
-        return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        );
-    }
+//     function isElementInViewport(el) {
+//         const rect = el.getBoundingClientRect();
+//         return (
+//             rect.top >= 0 &&
+//             rect.left >= 0 &&
+//             rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+//             rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+//         );
+//     }
 
-    function animateChartsIfVisible() {
-        if (isElementInViewport(analyticsSection)) {
-            chartWrappers.forEach(wrapper => wrapper.classList.add('animate'));
-            window.removeEventListener('scroll', animateChartsIfVisible);
+//     function animateChartsIfVisible() {
+//         if (isElementInViewport(analyticsSection)) {
+//             chartWrappers.forEach(wrapper => wrapper.classList.add('animate'));
+//             window.removeEventListener('scroll', animateChartsIfVisible);
+//         }
+//     }
+
+//     window.addEventListener('scroll', animateChartsIfVisible);
+//     animateChartsIfVisible(); // Check initially in case the section is already in view
+// });
+// Intersection Observer for Animations
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('swoop-in');
+            observer.unobserve(entry.target); // Stop observing once the animation is triggered
         }
-    }
-
-    window.addEventListener('scroll', animateChartsIfVisible);
-    animateChartsIfVisible(); // Check initially in case the section is already in view
+    });
 });
+
+// Observe each chart-wrapper element
+document.querySelectorAll('.chart-wrapper').forEach(wrapper => {
+    observer.observe(wrapper);
+});
+
 
 // Example data for each doughnut
 createDoughnutChart('doughnut1', 30, '#00ffcc'); // 30% of something
