@@ -38,7 +38,7 @@ const Resources = () => {
     const resourceData = { name, emailTemplate, landingPage };
 
     try {
-      await axios.post("/api/resources", resourceData); // Replace with your backend API URL
+      await axios.post("http://localhost:9000/resources/create", resourceData); 
       alert("Resource added successfully!");
       closeModal();
       fetchResources();
@@ -51,7 +51,7 @@ const Resources = () => {
   const fetchResources = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("/api/resources"); // Replace with your backend API URL
+      const response = await axios.get("http://localhost:9000/resources/all"); // Replace with your backend API URL
       setResources(response.data);
     } catch (error) {
       console.error("Error fetching resources:", error);
@@ -62,7 +62,7 @@ const Resources = () => {
 
   const handleDeleteResource = async (id) => {
     try {
-      await axios.delete(`/api/resources/${id}`); // Replace with your backend API URL
+      await axios.delete(`http://localhost:9000/resources/${id}`); // Replace with your backend API URL
       alert("Resource deleted successfully!");
       fetchResources();
     } catch (error) {
@@ -99,10 +99,10 @@ const Resources = () => {
               {resources.map((resource) => (
                 <li
                   key={resource.id}
-                  className="bg-white shadow-md rounded-lg p-4 border"
+                  className="bg-gray-700 shadow-md rounded-lg p-4 border"
                 >
-                  <div className="mb-2">
-                    <strong className="text-gray-800">Name:</strong> {resource.name}
+                  <div className="mb-2 text-gray-300">
+                    <strong className="text-gray-300">Name:</strong> {resource.name}
                   </div>
                   <div className="flex gap-2 mt-4">
                     <button
@@ -113,7 +113,7 @@ const Resources = () => {
                     </button>
                     <button
                       className="px-3 py-1 bg-blue-500 text-white text-sm rounded-md hover:bg-blue-600"
-                      onClick={() => openPreview(resource.landingPage)}
+                      onClick={() => openPreview(resource.landingPageTemplate)}
                     >
                       View Landing Page
                     </button>

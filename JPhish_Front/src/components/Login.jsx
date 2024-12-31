@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
+import { redirect } from 'react-router-dom';
 
 function Login(props) {
   const [email, setEmail] = useState('');
@@ -18,6 +19,7 @@ function Login(props) {
       if(response.ok){
         const token = await response.text();
         console.log('Log in successful', token);
+        redirect("http://localhost:5173/home");
         props.onLogin(token.adminName || 'Admin');
         setEmail('');
         setPassword('');
