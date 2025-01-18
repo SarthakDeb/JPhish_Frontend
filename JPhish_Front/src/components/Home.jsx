@@ -4,11 +4,15 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FaGithub, FaLinkedin, FaTwitter, FaDiscord } from 'react-icons/fa';
 import Articles from './Articles';
+import LineChart from './LineChart';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
   const analyticsRef = useRef(null);
+  const performanceRef = useRef(null);
+  const articlesRef = useRef(null);
+
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -44,6 +48,38 @@ const Home = () => {
         toggleActions: 'play none none none',
       },
     });
+    gsap.fromTo(
+      performanceRef.current,
+      { y: 100, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        scrollTrigger: {
+          trigger: performanceRef.current,
+          start: 'top 80%',
+          end: 'bottom 20%',
+          toggleActions: 'play none none none',
+        },
+      }
+    );
+
+    // Animate Articles section
+    gsap.fromTo(
+      articlesRef.current,
+      { x: 80, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 1,
+        scrollTrigger: {
+          trigger: articlesRef.current,
+          start: 'top 80%',
+          end: 'bottom 20%',
+          toggleActions: 'play none none none',
+        },
+      }
+    );
   }, []);
 
   const data = {
@@ -73,6 +109,61 @@ const Home = () => {
         },
       },
     },
+  };
+  const lineData1 = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+    datasets: [
+      {
+        label: 'Entity A',
+        data: [12, 19, 3, 5, 2],
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)'
+      },
+      {
+        label: 'Entity B',
+        data: [2, 3, 20, 5, 1],
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)'
+      }
+    ]
+  };
+  const lineData2 = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+    datasets: [
+      {
+        label: 'Campaign',
+        data: [10, 15, 18, 20, 25],
+        borderColor: 'rgba(153, 102, 255, 1)',
+        backgroundColor: 'rgba(153, 102, 255, 0.2)'
+      },
+      {
+        label: 'Training',
+        data: [8, 12, 15, 17, 22],
+        borderColor: 'rgba(255, 206, 86, 1)',
+        backgroundColor: 'rgba(255, 206, 86, 0.2)'
+      }
+    ]
+  };
+  
+  const lineOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        labels: {
+          color: 'white'
+        }
+      }
+    },
+    scales: {
+      x: {
+        ticks: { color: 'white' },
+        grid: { color: 'rgba(255,255,255,0.2)' }
+      },
+      y: {
+        ticks: { color: 'white' },
+        grid: { color: 'rgba(255,255,255,0.2)' }
+      }
+    }
   };
 
   const fontStyle = {
@@ -119,7 +210,27 @@ const Home = () => {
           <DoughnutChart data={data} options={options} />
         </div>
       </div>
+      {/* Performance Graphs Section */}
+      <div ref={performanceRef} className="w-screen px-5 py-8 flex flex-col items-center">
+        <h2 className="text-4xl text-white font-extrabold mb-6" style={fontStyle}>
+          Performance Graphs
+        </h2>
+        <div className="flex flex-wrap justify-center gap-6">
+          {/* First Line Graph */}
+          <div className="bg-gray-700 rounded-md shadow-md w-[600px] h-[300px] flex flex-col items-center p-6">
+            <h3 className="text-xl text-white mb-2">Entity A vs Entity B</h3>
+            <div className="text-gray-300 text-sm text-center "><LineChart data={lineData1} options={lineOptions}  /></div>
+          </div>
+          {/* Second Line Graph */}
+          <div className="bg-gray-700 rounded-md shadow-md w-[600px] h-[300px] flex flex-col items-center p-4">
+            <h3 className="text-xl text-white mb-2">Campaigns vs Training</h3>
+            <div className="text-gray-300 text-sm text-center"><LineChart data={lineData2} options={lineOptions}  /></div>
+          </div>
+        </div>
+      </div>
+      <div ref={articlesRef}>
       <Articles />
+      </div>
     <footer className="flex flex-col items-center justify-center bg-gray-800 p-5 text-white gap-2">
       <div className='flex justify-between gap-4'>
   <a

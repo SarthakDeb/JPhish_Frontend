@@ -3,11 +3,14 @@ import React from 'react'
 import { useState } from "react";
 import axios from "axios";
 
-const SendingProfile = () => {
+const SendingProfile = ({ onSelectProfile }) => {
   const [showModal, setShowModal] = useState(false);
   const [profileName, setProfileName] = useState("");
   const [profileEmailId, setProfileEmailId] = useState("");
-  const [profileSMTP, setProfileSMTP] = useState("");
+  const [profileSMTPHost, setProfileSMTPHost] = useState("");
+  const [profileSMTPPort, setProfileSMTPPort] = useState("");
+  const [profileSMTPUsername, setProfileSMTPUsername] = useState("");
+  const [profileSMTPPassword, setProfileSMTPPassword] = useState("");
   const [profileDesc, setProfileDesc] = useState("");
   const [profiles, setProfiles] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -17,12 +20,15 @@ const SendingProfile = () => {
     setShowModal(false);
     setProfileName("");
     setProfileEmailId("");
-    setProfileSMTP("");
+    setProfileSMTPHost("");
+    setProfileSMTPPort("");
+    setProfileSMTPUsername("");
+    setProfileSMTPPassword("");
     setProfileDesc("");
   };
 
   const handleAddProfile = async () => {
-    if (!profileName || !profileEmailId || !profileSMTP || !profileDesc) {
+    if (!profileName || !profileEmailId || !profileSMTPHost ||!profileSMTPPort ||!profileSMTPUsername ||!profileSMTPPassword || !profileDesc) {
       alert("Please fill out all fields.");
       return;
     }
@@ -30,12 +36,15 @@ const SendingProfile = () => {
     const profileData = {
       profileName,
       profileEmailId,
-      profileSMTP,
+      profileSMTPHost,
+      profileSMTPPort,
+      profileSMTPUsername,
+      profileSMTPPassword,
       profileDesc,
     };
 
     try {
-      await axios.post("http://localhost:9000/profile/create", profileData); // Replace with your backend API URL
+      await axios.post("http://localhost:9000/profile/create", profileData); 
       alert("Profile added successfully!");
       closeModal();
       fetchProfiles();
@@ -48,7 +57,7 @@ const SendingProfile = () => {
   const fetchProfiles = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:9000/profile/get"); // Replace with your backend API URL
+      const response = await axios.get("http://localhost:9000/profile/get"); 
       setProfiles(response.data);
     } catch (error) {
       console.error("Error fetching profiles:", error);
@@ -59,13 +68,17 @@ const SendingProfile = () => {
 
   const handleDeleteProfile = async (id) => {
     try {
-      await axios.delete(`http://localhost:9000/profile/${id}`); // Replace with your backend API URL
+      await axios.delete(`http://localhost:9000/profile/${id}`); 
       alert("Profile deleted successfully!");
       fetchProfiles();
     } catch (error) {
       console.error("Error deleting profile:", error);
       alert("Failed to delete profile.");
     }
+  };
+  const handleSelectProfile = (profile) => {
+    if (onSelectProfile) onSelectProfile(profile);
+    alert(`Profile ${profile.profileName} selected!`);
   };
 
   return (
@@ -117,7 +130,7 @@ const SendingProfile = () => {
                   <div className="flex gap-2 mt-4">
                     <button
                       className="px-3 py-1 bg-blue-500 text-white text-sm rounded-md hover:bg-blue-600"
-                      onClick={() => alert(`Profile ${profile.profileName} selected!`)}
+                      onClick={() => handleSelectProfile(profile)}
                     >
                       Select
                     </button>
@@ -141,39 +154,66 @@ const SendingProfile = () => {
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white w-96 p-6 rounded-lg shadow-lg">
-            <h3 className="text-lg font-bold mb-4">Add Profile</h3>
+          <div className="bg-gray-700 p-6 rounded-md shadow-md w-[600px]">
+            <h3 className="text-gray-300 text-lg font-bold mb-4">Add Profile</h3>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-1">Profile Name</label>
+              <label className="block text-gray-300 mb-1">Profile Name</label>
               <input
                 type="text"
-                className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent w-full px-3 py-2 border rounded-lg text-gray-200 focus:outline-none focus:ring focus:ring-blue-500"
                 value={profileName}
                 onChange={(e) => setProfileName(e.target.value)}
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-1">Profile Email ID</label>
+              <label className="block text-gray-300 mb-1">Profile Email ID</label>
               <input
                 type="email"
-                className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent w-full px-3 py-2 border rounded-lg text-gray-200 focus:outline-none focus:ring focus:ring-blue-500"
                 value={profileEmailId}
                 onChange={(e) => setProfileEmailId(e.target.value)}
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-1">SMTP</label>
+              <label className="block text-gray-300 mb-1">SMTP Host</label>
               <input
                 type="text"
-                className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-500"
-                value={profileSMTP}
-                onChange={(e) => setProfileSMTP(e.target.value)}
+                className="bg-transparent w-full px-3 py-2 border rounded-lg text-gray-200 focus:outline-none focus:ring focus:ring-blue-500"
+                value={profileSMTPHost}
+                onChange={(e) => setProfileSMTPHost(e.target.value)}
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-1">Description</label>
+              <label className="block text-gray-300 mb-1">SMTP Port</label>
+              <input
+                type="text"
+                className="bg-transparent w-full px-3 py-2 border rounded-lg text-gray-200 focus:outline-none focus:ring focus:ring-blue-500"
+                value={profileSMTPPort}
+                onChange={(e) => setProfileSMTPPort(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-300 mb-1">SMTP Username</label>
+              <input
+                type="text"
+                className="bg-transparent w-full px-3 py-2 border rounded-lg text-gray-200 focus:outline-none focus:ring focus:ring-blue-500"
+                value={profileSMTPUsername}
+                onChange={(e) => setProfileSMTPUsername(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-300 mb-1">SMTP Password</label>
+              <input
+                type="text"
+                className="bg-transparent w-full px-3 py-2 border rounded-lg text-gray-200 focus:outline-none focus:ring focus:ring-blue-500"
+                value={profileSMTPPassword}
+                onChange={(e) => setProfileSMTPPassword(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-300 mb-1">Description</label>
               <textarea
-                className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent w-full px-3 py-2 border rounded-lg text-gray-200 focus:outline-none focus:ring focus:ring-blue-500"
                 value={profileDesc}
                 onChange={(e) => setProfileDesc(e.target.value)}
               />

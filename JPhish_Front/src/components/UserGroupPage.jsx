@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 
-const UserGroups = () => {
+const UserGroups = ({onSelectGroup}) => {
   const [showModal, setShowModal] = useState(false);
   const [groupName, setGroupName] = useState("");
   const [csvFile, setCsvFile] = useState(null);
@@ -26,11 +26,16 @@ const UserGroups = () => {
     }
 
     const formData = new FormData();
-    formData.append("name", groupName);
+    formData.append("Groupname", groupName);
     formData.append("file", csvFile);
 
     try {
-      await axios.post("http://localhost:9000/usergroup/create", formData); // Replace with your backend API URL
+      const response = await axios.post("http://localhost:9000/usergroup/create", formData,{
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }); 
+      console.log("Response", response);
       alert("Group added successfully!");
       closeModal();
       fetchGroups();
@@ -61,6 +66,10 @@ const UserGroups = () => {
       console.error("Error deleting group:", error);
       alert("Failed to delete group.");
     }
+  };
+  const handleSelectGroup = (group) => {
+    if (onSelectGroup) onSelectGroup(group);
+    alert(`Selected group: ${group.groupName}`);
   };
 
   return (
@@ -114,7 +123,7 @@ const UserGroups = () => {
                   <div className="flex gap-2">
                     <button
                       className="px-3 py-1 bg-blue-500 text-white text-sm rounded-md hover:bg-blue-600"
-                      onClick={() => alert(`Group ${group.groupName} selected!`)}
+                      onClick={() => handleSelectGroup(group)}
                     >
                       Select
                     </button>
@@ -142,7 +151,7 @@ const UserGroups = () => {
               <label className="block text-gray-300 mb-1">Group Name</label>
               <input
                 type="text"
-                className="w-full px-3 py-2 border rounded-lg text-gray-300 focus:outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent w-full px-3 py-2 border rounded-lg text-gray-300 focus:outline-none focus:ring focus:ring-blue-500"
                 value={groupName}
                 onChange={(e) => setGroupName(e.target.value)}
               />

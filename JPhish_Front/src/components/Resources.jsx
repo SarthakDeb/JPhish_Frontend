@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Resources = () => {
+const Resources = ({ onSelectResource }) => {
   const [showModal, setShowModal] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [selectedContent, setSelectedContent] = useState("");
@@ -70,6 +70,10 @@ const Resources = () => {
       alert("Failed to delete resource.");
     }
   };
+  const handleSelectResource = (res) => {
+    if (onSelectResource) onSelectResource(res);
+    alert(`Resource selected: ${res.name}`);
+  };
 
   return (
     <div className="p-6 bg-gradient-to-r from-gray-800 to-gray-500 min-h-screen w-screen">
@@ -118,6 +122,12 @@ const Resources = () => {
                       View Landing Page
                     </button>
                     <button
+                      className="px-3 py-1 bg-green-500 text-white text-sm rounded-md hover:bg-red-600"
+                      onClick={() => handleSelectResource(resource)}
+                    >
+                      Select
+                    </button>
+                    <button
                       className="px-3 py-1 bg-red-500 text-white text-sm rounded-md hover:bg-red-600"
                       onClick={() => handleDeleteResource(resource.id)}
                     >
@@ -137,21 +147,21 @@ const Resources = () => {
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white w-96 p-6 rounded-lg shadow-lg">
-            <h3 className="text-lg font-bold mb-4">Add Resource</h3>
+          <div className="bg-gray-700 p-6 rounded-md shadow-md w-[600px]">
+            <h3 className="text-lg text-gray-300 font-bold mb-4">Add Resource</h3>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-1">Name</label>
+              <label className="block text-gray-300 mb-1">Name</label>
               <input
                 type="text"
-                className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent w-full px-3 py-2 border rounded-lg text-gray-200 focus:outline-none focus:ring focus:ring-blue-500"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-1">Email Template</label>
+              <label className="block text-gray-300 mb-1">Email Template</label>
               <textarea
-                className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent w-full px-3 py-2 border rounded-lg text-gray-200 focus:outline-none focus:ring focus:ring-blue-500"
                 value={emailTemplate}
                 onChange={(e) => setEmailTemplate(e.target.value)}
                 rows={6}
@@ -159,9 +169,9 @@ const Resources = () => {
               ></textarea>
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-1">Landing Page HTML</label>
+              <label className="block text-gray-300 mb-1">Landing Page HTML</label>
               <textarea
-                className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring focus:ring-blue-500"
+                className="bg-transparent w-full px-3 py-2 border rounded-lg text-gray-200 focus:outline-none focus:ring focus:ring-blue-500"
                 value={landingPage}
                 onChange={(e) => setLandingPage(e.target.value)}
                 rows={6}
