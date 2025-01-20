@@ -19,6 +19,7 @@ function Navbar(props) {
                 <li className='hover:text-cyan-300 cursor-pointer'>Domain Finder</li>
                 <li className='hover:text-cyan-300 cursor-pointer'>
                   <Link to={'/campaign'}> Campaign </Link></li>
+                <li className='hover:text-cyan-300 cursor-pointer'>Log Out</li>
                 {props.loginStatus ? (<li className='hover:text-cyan-300 cursor-pointer'>
                   <Link to={'/'}> 
                   {props.loginStatus}&#128075;

@@ -182,13 +182,13 @@ const Home = () => {
           <div className='text-2xl p-4 font-thin'>150</div>
         </div>
         <div className='bg-gray-700 rounded-md font-semibold text-3xl w-[300px] h-[150px] shadow-md p-5 m-5 flex flex-col items-center justify-center text-gray-300'>Emails sent
-          <div className='text-2xl p-4 font-thin'>150</div>
+          <div className='text-2xl p-4 font-thin'>300</div>
         </div>
         <div className='bg-gray-700 rounded-md font-semibold text-3xl w-[300px] h-[150px] shadow-md p-5 m-5 flex flex-col items-center justify-center text-gray-300'>Training provided
-          <div className='text-2xl p-4 font-thin'>150</div>
+          <div className='text-2xl p-4 font-thin'>250</div>
         </div>
         <div className='bg-gray-700 rounded-md font-semibold text-3xl w-[300px] h-[150px] shadow-md p-5 m-5 flex flex-col items-center justify-center text-gray-300'>Registered Users
-          <div className='text-2xl p-4 font-thin'>150</div>
+          <div className='text-2xl p-4 font-thin'>550</div>
         </div>
       </div>
       <h2 className='p-5 ml-2 font-extrabold text-4xl text-white'>&#9614; Campaign Analytics</h2>
